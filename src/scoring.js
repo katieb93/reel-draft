@@ -31,15 +31,14 @@
         const location = useLocation();
         const selected = location.state.playersSelectedMovies;
         
-        console.log("WHEE", selected)
         const genreIds = useGenreIds(); // Call the hook here
+        
         const genreData = location.state.genreData;
 
         const numberOfGenres = Object.keys(genreData).length;
         const players = location.state.players;
         const year = location.state.year;
         const fetchedMovies = location.state.fetchedMovies;
-        console.log("THATCHER 101", fetchedMovies)
 
         const [isVisible, setIsVisible] = useState(false);
         const [isLoadVisible, setIsLoadVisible] = useState(true);
@@ -99,7 +98,6 @@
         };
     
         const findMovieRank = (selected) => {
-            console.log("THATCHER 100", selected)
 
             const movieRanks = {};
         
@@ -113,20 +111,12 @@
 
                     const movieTitle = movie.movieTitle;
 
-                    console.log("THATCHER 7", selected)
-
                     let fetchedGenreGroup = genreGroup.replace(' / ', '_'); 
 
                     if (fetchedMovies[fetchedGenreGroup]) {
 
                         const genreMovies = fetchedMovies[fetchedGenreGroup];
-
-                        console.log("THATCHER 8", genreMovies)
-
-                        const matchedMovie = genreMovies.movies.find(movie => movie.title === movieTitle);
-                        console.log("THATCHER 9", matchedMovie)
-
-                        
+                        const matchedMovie = genreMovies.movies.find(movie => movie.title === movieTitle);                        
 
                         if (matchedMovie) {
                             if (!movieRanks[playerName][genreGroup]) {
@@ -137,17 +127,15 @@
                     }
                 }
             }
-            console.log("THATCHER 6", movieRanks)
             return movieRanks;
         };
 
     const extractMovieRanks = (data) => {
-        console.log("THATCHER 4", data)
         const result = {};
         
         for (const character in data) {
             result[character] = {};
-        
+    
             for (const genre in data[character]) {
             result[character][genre] = data[character][genre].map(movie => ({
                 title: movie.title,
@@ -156,12 +144,10 @@
             }
         }
         
-        console.log("THATCHER 3", result)
         return result;
         };
 
     const movieRanks = findMovieRank(selected);
-    console.log("THATCHER 5", movieRanks)
 
     const extractedRanks = extractMovieRanks(movieRanks);
 
@@ -188,20 +174,13 @@
         return averages;
         };
     
-    console.log("EXXX", extractedRanks)
     const movieAverages = calculateAverages(extractedRanks);
-
     const calculatePlayerAverages = (movieAverages) => {
 
         const playerAverages = {};
-
-        console.log("MYST 5", numberOfGenres)
-        console.log("MYST 8", movieAverages )
-    
         for (const player in movieAverages) {
 
             const genres = movieAverages[player];
-            console.log("MYST MOST 7", player, genres)
     
             let sum = 0;
             let count = 0;
@@ -215,11 +194,8 @@
                 });
             }
 
-            console.log("MYST MOST 6", player, count)
-
             if (count < numberOfGenres) {
                 let remainingGenres = numberOfGenres - count;
-                console.log("MYST Z Remaining genres for", player, ":", remainingGenres);
                 sum += remainingGenres * 0; // Adding zeros doesn't affect the sum
             }
 
@@ -229,7 +205,6 @@
             // Assign the average to the player's name
             playerAverages[player] = average;
         }
-        console.log("MYST Y", playerAverages)
         return playerAverages;
     };
     
@@ -239,10 +214,7 @@
 
     const rankPlayers = (playerAverages) => {
 
-        console.log("MISSION", playerAverages)
-
-        const sortedPlayers = Object.entries(playerAverages).sort((a, b) => b[1] - a[1]);
-    
+        const sortedPlayers = Object.entries(playerAverages).sort((a, b) => b[1] - a[1]);    
         const rankedPlayers = {};
     
         sortedPlayers.forEach(([player, _], index) => {
@@ -344,32 +316,15 @@
     };
     
     const closeContainer = () => {
-        console.log("CLOSE CONTAINER", isVisible)
         setIsVisible(false);
     };
 
-
-
-
     return (
         <div className='all'>
-
-                        {/* <div className='score-load'>
-                            <div className='score-load-container'>
-                                <div className='random-quote'>
-                                    <RandomQuote />
-                                </div>
-                                <img className="gif-image" src={colorGif} alt="Your GIF" />
-                            </div>
-                        </div> */}
-
                 <>
                     {isLoadVisible && (
                         <div className='score-load'>
                             <div className='score-load-container'>
-                                {/* <div className='random-quote'>
-                                    <RandomQuote />
-                                </div> */}
                                 <img className="gif-image" src={colorGif} alt="Your GIF" />
                             </div>
                         </div>
@@ -384,7 +339,6 @@
                                     const { rankWord } = rankedPlayers[playerName];
                                     const playerStyle = getPlayerStyle(playerName);
                                     const animationDelay = (sortedPlayers.length - index - 1) * 1 + 's'; // Decreasing delay for each player
-                                    // const animationDelay = index * 0.5 + 's'; // Increasing delay for each player
                                     const animationDuration = sortedPlayers.length * 0.5 + 's'; // Total animation duration
                 
                                     return (
@@ -426,7 +380,7 @@
                     )}
                 </>
                 {showPopup && (
-                        <div className="popup-scoring">
+                        <div className="score-pop">
                             <p className='message'>Copied to keyboard</p>
                         </div>
                 )}
@@ -455,7 +409,6 @@
                                 getPlayerStyle={getPlayerStyle}
                                 rankedPlayers={rankedPlayers}
                             />
-                            {/* {generateMovieTable()} */}
                         </div>
                     </div>
                 </div>

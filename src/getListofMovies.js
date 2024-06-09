@@ -59,15 +59,11 @@ const ListOfMovies = () => {
     const numOfPlayers = players.length;
     const [showPlayerBoards, setShowPlayerBoards] = useState(false); // State to control player board visibility
 
+    // Call the custom hooks
     const genreIds = useGenreIds(); // Call the hook here
     const fetchedMovies = useFetchMovies(year, genreIds); // Use the custom hook to fetch movies
-
     const [disabledIsAll, setDisabledIsAll] = useState(false);
 
-
-    useEffect(() => {
-        // Perform any side effect with fetchedMovies here
-    }, [fetchedMovies]);
 
     const [playersSelectedMovies, setPlayersSelectedMovies] = useState({}); // State for playersSelectedMovies
 
@@ -169,23 +165,23 @@ const ListOfMovies = () => {
 
         setPlayers(updatedPlayers);
 
-        // // Log the movies confirmed by all players
-        // if (numOfConfirms.current === numOfPlayers * numOfGenre) {
-        //     const moviesConfirmedByAll = pickedMovies.reduce((acc, movie) => {
-        //         const count = acc[movie.genreGroup + movie.movieTitle] || 0;
-        //         return {
-        //             ...acc,
-        //             [movie.genreGroup + movie.movieTitle]: count + 1
-        //         };
-        //     }, {});
+        // Log the movies confirmed by all players
+        if (numOfConfirms.current === numOfPlayers * numOfGenre) {
+            const moviesConfirmedByAll = pickedMovies.reduce((acc, movie) => {
+                const count = acc[movie.genreGroup + movie.movieTitle] || 0;
+                return {
+                    ...acc,
+                    [movie.genreGroup + movie.movieTitle]: count + 1
+                };
+            }, {});
 
-        //     const finalMovies = Object.entries(moviesConfirmedByAll)
-        //         .filter(([_, count]) => count === numOfPlayers)
-        //         .map(([key]) => {
-        //             const [genreGroup, movieTitle] = key.split(movieTitle);
-        //             return { genreGroup, movieTitle };
-        //         });
-        // }
+            const finalMovies = Object.entries(moviesConfirmedByAll)
+                .filter(([_, count]) => count === numOfPlayers)
+                .map(([key]) => {
+                    const [genreGroup, movieTitle] = key.split(movieTitle);
+                    return { genreGroup, movieTitle };
+                });
+        }
     };
 
     const handleMouseEnter = async (genreGroup) => {
@@ -222,7 +218,7 @@ const ListOfMovies = () => {
         setShowVideo(false);
         setShowPlayerBoards(true); // Show player boards after video finishes
     }; 
-    
+
     return (
         <div className="center-container">
             {showVideo && ( // Conditionally render the video player and "X" button

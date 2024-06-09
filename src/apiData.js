@@ -6,11 +6,8 @@ const ApiData = async (year, genreIds) => {
     
     const API_ENDPOINT = "https://api.themoviedb.org/3/discover/movie";
 
+    const API_KEY = process.env.REACT_APP_API_KEY;
 
-    // const API_KEY = process.env.REACT_APP_API_KEY; 
-    // const API_KEY = process.env.REACT_APP_API_KEY; // Access the environment variable or provide a fallback
-
-    const API_KEY = "8ebcb38ebf496b8f2ea65f1d40174e1d";
 
     const totalPages = 20; // Total number of pages to fetch
     const blockbusterLimit = 20; // Limit for blockbuster movies
@@ -21,14 +18,13 @@ const ApiData = async (year, genreIds) => {
 
     for (let currentPage = 1; currentPage <= totalPages; currentPage++) {
         let url = `${API_ENDPOINT}?api_key=${API_KEY}&primary_release_year=${year}&page=${currentPage}`;
-        console.log("BUTTER", url)
 
         // Check if "blockbuster" genre is present in genreIds
         if (genreIds.includes('blockbuster')) {
             // Fetch only the top 20 movies (first page)
             
             url += `&sort_by=revenue.desc&region=United%20States`;
-            console.log("JANE", url)
+
         } else if (genreIds.includes('wildcard')) {
             // Fetch movies without specifying any genre
             url += `&sort_by=vote_count.desc&region=United%20States`;
@@ -42,7 +38,6 @@ const ApiData = async (year, genreIds) => {
 
             if (response.status === 200) {
                 const movieData = response.data.results;
-                console.log("JANE 2", movieData)
                 for (const movie of movieData) {
                     // Skip movies with 'gif' in the title
                     if (movie.title.toLowerCase().includes('gif')) {
@@ -81,7 +76,6 @@ const ApiData = async (year, genreIds) => {
             break;
         }
     }
-    console.log("MMMMO", moviesOverall)
     return moviesOverall;
 };
 

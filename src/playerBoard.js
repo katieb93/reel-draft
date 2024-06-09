@@ -35,8 +35,6 @@ function PlayerBoard({
     const navigate = useNavigate();
     const moviesToAppear = useMemo(() => genreMovies.slice(0, 100), [genreMovies]);
 
-    console.log("THATCHER 102", fetchedMovies)
-
     const handleInputChange = (genreGroup, value) => {
         setInputValues(prevState => ({
             ...prevState,
@@ -89,7 +87,7 @@ function PlayerBoard({
                 setFilteredMovies([]);
             }
         }
-    }, [hoveredGenreGroup, searchQueries, moviesToAppear]);
+    }, [hoveredGenreGroup, searchQueries]);
 
     // Define a state to track clicked state for each genre group
     const [clickedGenres, setClickedGenres] = useState({});
@@ -133,8 +131,10 @@ function PlayerBoard({
 
     function allBlockbusterMoviesPicked(blockbusterMovies, pickedMovies) {
         let allPicked = true;
+
         blockbusterMovies.forEach(blockbusterMovie => {
             let found = false;
+
             pickedMovies.forEach(pickedMovie => {
                 if (blockbusterMovie.title === pickedMovie.movieTitle) {
                     found = true;
@@ -171,6 +171,8 @@ function PlayerBoard({
         }
     });
 
+
+    
     let totalMovies = 0; // Define totalMovies variable
     
     for (const player in playersSelectedMovies) {
@@ -191,8 +193,6 @@ function PlayerBoard({
         return count;
     };
 
-    // console.log("C3PO 10", countDisabledInputsForPlayerFn)
-
     // Count disabled inputs for the current player
     const disabledInputsCountForPlayer = countDisabledInputsForPlayerFn();
 
@@ -203,12 +203,10 @@ function PlayerBoard({
         setDisabledIsAll(isDisabledAll);
 
         // Log inside useEffect to verify state update
-        console.log("C3PO B disabledIsAll:", player.name, isDisabledAll);
     }, [disabledInputsCountForPlayer]);
 
     // Log after the useEffect to see the state change (may not reflect the latest change immediately)
     useEffect(() => {
-        console.log("C3PO C after state update", disabledIsAll);
     }, [disabledIsAll]);
 
     // const gameEnd = () => totalLength === totalInputs || disabledIsAll;
@@ -266,7 +264,6 @@ function PlayerBoard({
                         {Object.entries(genreData).map(([genreGroup, genres]) => (
                             <tr key={genreGroup}>
                                 <td className='genreGroup'>{genreGroup}</td>
-                                {/* <td className="selection-cell"> */}
                                 <td className={`selection-cell ${((genreGroup === 'Blockbuster' && allPicked) || isInputDisabled(genreGroup)) ? 'done' : ''}`}>
 
                                     {genreGroup === 'Blockbuster' && allPicked ? ( 

@@ -450,20 +450,24 @@
     margin-top: 10px;
 }
 
-.message {
+.score-pop {
     position: absolute;
-    top: 10px;
-    left: 50%; /* Position it horizontally at 50% from the left */
-    transform: translate(-50%, -50%); /* Center the element */
-    z-index: 9999; /* Ensure it appears on top of other content */
-    background-color: #F2A815;
-    padding: 10px;
-    margin: 0px;
-    font-size: 14px;
-    font-weight: 600;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     display: flex;
-    align-items: center;
     flex-wrap: wrap;
+    align-content: center;
     justify-content: center;
+    top: calc(8%); 
+    /* transform: translate(-50%, -50%); */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F2A815;
+    width: 150px;
+    padding: 10px;
+    font-weight: 400;
+    font-size: 12px;
+    color: white;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    z-index: 9999; 
 }

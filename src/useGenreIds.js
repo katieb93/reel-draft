@@ -41,8 +41,6 @@ const useGenreIds = () => {
         setGenreIds(idsObject);
     }
 
-    console.log("PLUS WAFFLE", genreIds);
-
     return genreIds;
 }
 

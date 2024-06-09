@@ -1,7 +1,6 @@
 <div className='movie-dropdown-holder'>
 {(!hoveredGenreGroup || hoveredGenreGroup === 'Wildcard') && (
     <ul className='movie-list'>
-        {/* List for Wildcard */}
         {genreData['Wildcard'].map((movie, index) => (
             <li key={index} onClick={() => handleMovieSelect('Wildcard', movie)}>
                 {movie}
@@ -11,7 +10,6 @@
 )}
 {hoveredGenreGroup && hoveredGenreGroup !== 'Wildcard' && (
     <ul className='movie-list'>
-        {/* List for hovered genre group */}
         {filteredMovies.map(movie => (
             <li
                 key={movie.title}
