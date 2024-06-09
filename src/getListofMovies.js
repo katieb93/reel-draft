@@ -121,12 +121,10 @@ const ListOfMovies = () => {
             } else {
                 setLastPlayerClicks(prevClicks => {
                     const newClicks = prevClicks + 1;
-                    console.log("PRAISE PLATT", disabledIsAll)
                     if (newClicks === 1) {
                         setEvenRound(true);
                         setRoundCount(prevCount => prevCount + 1);
                     }
-                    console.log("PRAISE PLATT 1", disabledIsAll)
                     if (newClicks === 2 ) {
                         setIsForwardRound(false);
                         setCurrentPlayerNum(currentPlayerNum - 1);
@@ -171,23 +169,23 @@ const ListOfMovies = () => {
 
         setPlayers(updatedPlayers);
 
-        // Log the movies confirmed by all players
-        if (numOfConfirms.current === numOfPlayers * numOfGenre) {
-            const moviesConfirmedByAll = pickedMovies.reduce((acc, movie) => {
-                const count = acc[movie.genreGroup + movie.movieTitle] || 0;
-                return {
-                    ...acc,
-                    [movie.genreGroup + movie.movieTitle]: count + 1
-                };
-            }, {});
+        // // Log the movies confirmed by all players
+        // if (numOfConfirms.current === numOfPlayers * numOfGenre) {
+        //     const moviesConfirmedByAll = pickedMovies.reduce((acc, movie) => {
+        //         const count = acc[movie.genreGroup + movie.movieTitle] || 0;
+        //         return {
+        //             ...acc,
+        //             [movie.genreGroup + movie.movieTitle]: count + 1
+        //         };
+        //     }, {});
 
-            const finalMovies = Object.entries(moviesConfirmedByAll)
-                .filter(([_, count]) => count === numOfPlayers)
-                .map(([key]) => {
-                    const [genreGroup, movieTitle] = key.split(movieTitle);
-                    return { genreGroup, movieTitle };
-                });
-        }
+        //     const finalMovies = Object.entries(moviesConfirmedByAll)
+        //         .filter(([_, count]) => count === numOfPlayers)
+        //         .map(([key]) => {
+        //             const [genreGroup, movieTitle] = key.split(movieTitle);
+        //             return { genreGroup, movieTitle };
+        //         });
+        // }
     };
 
     const handleMouseEnter = async (genreGroup) => {
@@ -225,8 +223,6 @@ const ListOfMovies = () => {
         setShowPlayerBoards(true); // Show player boards after video finishes
     }; 
     
-    console.log("PLATT 2", disabledIsAll)
-
     return (
         <div className="center-container">
             {showVideo && ( // Conditionally render the video player and "X" button

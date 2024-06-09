@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const useGenreIds = () => {
     const [genreIds, setGenreIds] = useState({});
@@ -25,19 +25,21 @@ const useGenreIds = () => {
         wildcard: 'wildcard'
     };
 
-    useEffect(() => {
-        const orderedGenres = Object.keys(genreData); // Get genre names in the order they are defined
-        const idsObject = {};
+    // Define genre IDs directly without useEffect
+    const orderedGenres = Object.keys(genreData); // Get genre names in the order they are defined
+    const idsObject = {};
 
-        orderedGenres.forEach(genre => {
-            // Map genre names to their corresponding IDs
-            const genreIdsArray = genreData[genre].map(genreName => genreMapping[genreName]);
-            // Join multiple genre IDs with a separator if there are multiple values
-            idsObject[genre] = genreIdsArray.length > 1 ? genreIdsArray.join('|') : genreIdsArray[0];
-        });
+    orderedGenres.forEach(genre => {
+        // Map genre names to their corresponding IDs
+        const genreIdsArray = genreData[genre].map(genreName => genreMapping[genreName]);
+        // Join multiple genre IDs with a separator if there are multiple values
+        idsObject[genre] = genreIdsArray.length > 1 ? genreIdsArray.join('|') : genreIdsArray[0];
+    });
 
+    // Set genreIds state once during initialization
+    if (Object.keys(genreIds).length === 0) {
         setGenreIds(idsObject);
-    }, []); // Empty dependency array ensures this runs only once after the initial render
+    }
 
     console.log("PLUS WAFFLE", genreIds);
 

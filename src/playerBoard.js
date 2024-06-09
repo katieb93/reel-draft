@@ -89,7 +89,7 @@ function PlayerBoard({
                 setFilteredMovies([]);
             }
         }
-    }, [hoveredGenreGroup, searchQueries]);
+    }, [hoveredGenreGroup, searchQueries, moviesToAppear]);
 
     // Define a state to track clicked state for each genre group
     const [clickedGenres, setClickedGenres] = useState({});
@@ -171,8 +171,6 @@ function PlayerBoard({
         }
     });
 
-
-    
     let totalMovies = 0; // Define totalMovies variable
     
     for (const player in playersSelectedMovies) {

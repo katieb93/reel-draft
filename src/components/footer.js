@@ -1,5 +1,4 @@
 import React from 'react';
-import reelLogo from '../reelLogo.svg';
 import './navBar.css';
 
 function FooterNavBar() {

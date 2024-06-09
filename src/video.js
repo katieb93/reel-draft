@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+// import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
+
 import ReactPlayer from 'react-player'
 import Vid from "./HOW TO PLAY.mp4";
-// import styled from 'styled-components'; // Import styled here
 import './video.css';
 
 const VideoPlayer = () => {
